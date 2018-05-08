@@ -122,6 +122,8 @@ type Suunta
     | Vasen
 
 
+{-| Siirtää pistettä yhden askeleen toivottuun suuntaan.
+-}
 seuraavaRuutu : Suunta -> Piste -> Piste
 seuraavaRuutu suunta ( x, y ) =
     case suunta of
@@ -176,11 +178,15 @@ siirraKivea vanha uusi lauta =
 
 subscriptions : Pelilauta -> Sub Msg
 subscriptions pelilauta =
-    Keyboard.downs viestiPainalluksesta
+    Keyboard.downs liikuNuolilla
 
 
-viestiPainalluksesta : Int -> Msg
-viestiPainalluksesta nappainKoodi =
+{-| Ottaa näppäimen koodin ja palauttaa nuolinäppäimille
+viestin Liiku oikean suunnan kera.
+Muille näppäimille se palauttaa EiMuutosta.
+-}
+liikuNuolilla : Int -> Msg
+liikuNuolilla nappainKoodi =
     case nappainKoodi of
         37 ->
             Liiku Vasen
